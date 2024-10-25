@@ -26,7 +26,6 @@ void insert(int val){
     rear=new;
   }
   s++;
-  printf("Inserted.");
 }
 
 void delete(){
@@ -69,6 +68,7 @@ int main(){
           scanf("%d",&val);
           insert(val);
         }
+        printf("Inserted.");
         break;
 
       case 2:
