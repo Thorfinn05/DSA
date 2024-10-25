@@ -3,40 +3,62 @@
 #define MAX 5
 
 int queue[MAX];
-int i, n, choice, front=-1, rear=-1;
+int i, choice, front=-1, rear=-1;
 
 void insert(){
   int val;
-  if(rear==MAX-1){
-    printf("Overflow!\n");
+  if((front==0 && rear==MAX-1) || rear==front-1){
+    printf("Overflowed!");
   }
   else{
+    printf("Eneter elements: ");
+    scanf("%d",&val);
     if(front==-1 && rear==-1){
       front=0; rear=0;
     }
-    printf("Enter elements: ");
-      scanf("%d",&val);
+    else if(front!=0 && rear==MAX-1){
+      rear=0;
+    }
+    else{
       rear++;
-      queue[rear]=val;
+    }
+    queue[rear]=val;
     printf("Inserted.\n");
   }
 }
 
 void delete(){
-  if(front==-1 || front>rear){
+  if(front==-1 && rear==-1){
     printf("Underflow!\n");
   }
   else{
-    int val=queue[rear];
-    front++;
+    if(front==MAX-1 && rear!=front){
+      front=0;
+    }
+    else if(front==rear){
+      front=-1; rear=-1;
+    }
+    else{
+      front++;
+    }
     printf("Deleted.\n");
   }
 }
 
 void display(){
   printf("Queue: \n");
-  for(i=front+1; i<=rear; i++){
-    printf("%d\n",queue[i]);
+  if(rear>=front){
+    for(i=front; i<=rear; i++){
+      printf("%d\n",queue[i]);
+    }
+  }
+  else{
+    for(i=front; i<=MAX-1; i++){
+      printf("%d\n",queue[i]);
+    }
+    for(i=0; i<=rear; i++){
+      printf("%d\n",queue[i]);
+    }
   }
   if(front==-1 && rear==-1){
     printf("Empty Queue!\n");
@@ -44,8 +66,6 @@ void display(){
 }
 
 int main(){
-  printf("Enter population: ");
-  scanf("%d",&n);
   while(1){
     printf("\nChoose:\n1. Insert\n2. Delete\n3. Display\n4. Exit\nEnter Choice: ");
     scanf("%d",&choice);
