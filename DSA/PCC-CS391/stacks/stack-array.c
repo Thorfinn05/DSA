@@ -2,25 +2,25 @@
 
 int stack[100], i, choice, n, top=-1;
 
-void create(){
-  int val;
-  if(top==n){
-    printf("Overflow.\n");
-  }
-  else{
-    printf("Enter elements: ");
-    for(i=0; i<n; i++){
-      scanf("%d",&val);
-      top++;
-      stack[top]=val;
-    }
-    printf("Element pushed.\n");
-  }
-}
+// void create(){
+//   int val;
+//   if(top==n){
+//     printf("Overflow.\n");
+//   }
+//   else{
+//     printf("Enter elements: ");
+//     for(i=0; i<n; i++){
+//       scanf("%d",&val);
+//       top++;
+//       stack[top]=val;
+//     }
+//     printf("Element pushed.\n");
+//   }
+// }
 
 void push(){
   int val;
-  if(top==n){
+  if(top==n-1){
     printf("Overflow.\n");
   }
   else{
@@ -56,23 +56,23 @@ int main(){
   printf("Enter n: ");
   scanf("%d", &n);
   while(1){
-    printf("\nChoose:\n1. Create\n2. Push\n3. Pop\n4. Dispaly\n5. Exit\nEnter Choice: ");
+    printf("\nChoose:\n1. Push\n2. Pop\n3. Dispaly\n4. Exit\nEnter Choice: ");
     scanf("%d", &choice);
 
     switch(choice){
+      // case 1:
+      //   create();
+      //   break;
       case 1:
-        create();
-        break;
-      case 2:
         push();
         break;
-      case 3:
+      case 2:
         pop();
         break;
-      case 4:
+      case 3:
         display();
         break;
-      case 5:
+      case 4:
         printf("Exiting...");
         return 0;
       default:
