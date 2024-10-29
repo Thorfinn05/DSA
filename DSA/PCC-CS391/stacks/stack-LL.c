@@ -7,19 +7,19 @@ struct Node{
 };
 struct Node *top=NULL;
 
-void create(int val){
-  struct Node *new, *ptr;
-  new=malloc(sizeof(struct Node));
-  new->data=val;
-  new->next=NULL;
-  if(top==NULL){
-    top=new;
-  }
-  else{
-    new->next=top;
-    top=new;
-  }
-}
+// void create(int val){
+//   struct Node *new, *ptr;
+//   new=malloc(sizeof(struct Node));
+//   new->data=val;
+//   new->next=NULL;
+//   if(top==NULL){
+//     top=new;
+//   }
+//   else{
+//     new->next=top;
+//     top=new;
+//   }
+// }
 
 void push(int val){
   struct Node *new, *ptr;
@@ -61,46 +61,56 @@ void display(){
   struct Node *ptr=top;
   printf("Stack: ");
   while(ptr!=NULL){
-    printf("\n%d\n",ptr->data);
+    printf("%d\n",ptr->data);
     ptr=ptr->next;
   }
 }
 
 int main(){
-  int choice, val, n;
+  int choice, val, n, a=0;
+  printf("Enter population: ");
+    scanf("%d",&n);
   while(1){
-    printf("*Choose*\n1. Create\n2. Push\n3. Pop\n4. Peek\n5. Display\n6. Exit\nEnter choice: ");
+    printf("*Choose*\n1. Push\n2. Pop\n3. Peek\n4. Display\n5. Exit\nEnter choice: ");
     scanf("%d",&choice);
 
     switch(choice){
-      case 1: 
-        printf("Enter population: ");
-        scanf("%d",&n);
-        int i;
-        printf("Enter elements: ");
-        for(i=0;i<n;i++){
-          scanf("%d",&val);
-          create(val);
-        }
-        break;
-      case 2:
+      // case 1: 
+      //   printf("Enter population: ");
+      //   scanf("%d",&n);
+      //   int i;
+      //   printf("Enter elements: ");
+      //   for(i=0;i<n;i++){
+      //     scanf("%d",&val);
+      //     create(val);
+      //   }
+      //   break;
+      case 1:
         printf("Enter element to push: ");
-        scanf("%d",&val);
-        push(val);
+        if(a<n){
+          scanf("%d",&val);
+          push(val);
+          a++;
+        }
+        else{
+          printf("\nOverflowed!\n");
+          break;
+        }
         printf("Element pushed.\n");
         break;
-      case 3:
+      case 2:
         pop();
+        a--;
         break;
-      case 4:
+      case 3:
         printf("Enter element to peek: ");
         scanf("%d",&val);
         peek(val);
         break;
-      case 5:
+      case 4:
         display();
         break;
-      case 6:
+      case 5:
         printf("Exiting...");
         return 0;
       default:
