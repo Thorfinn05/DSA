@@ -2,22 +2,6 @@
 
 int stack[100], i, choice, n, top=-1;
 
-// void create(){
-//   int val;
-//   if(top==n){
-//     printf("Overflow.\n");
-//   }
-//   else{
-//     printf("Enter elements: ");
-//     for(i=0; i<n; i++){
-//       scanf("%d",&val);
-//       top++;
-//       stack[top]=val;
-//     }
-//     printf("Element pushed.\n");
-//   }
-// }
-
 void push(){
   int val;
   if(top==n-1){
@@ -60,9 +44,6 @@ int main(){
     scanf("%d", &choice);
 
     switch(choice){
-      // case 1:
-      //   create();
-      //   break;
       case 1:
         push();
         break;
