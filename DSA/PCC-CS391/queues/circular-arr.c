@@ -48,7 +48,7 @@ void delete(){
 void display(){
   printf("Queue: \n");
   if(rear>=front){
-    for(i=front; i<=rear; i++){
+    for(i=front+1; i<=rear; i++){
       printf("%d\n",queue[i]);
     }
   }
@@ -66,8 +66,9 @@ void display(){
 }
 
 int main(){
+  printf("\nChoose:\n1. Insert\n2. Delete\n3. Display\n4. Exit\n");
   while(1){
-    printf("\nChoose:\n1. Insert\n2. Delete\n3. Display\n4. Exit\nEnter Choice: ");
+    printf("\nEnter Choice: ");
     scanf("%d",&choice);
     switch(choice){
       case 1:

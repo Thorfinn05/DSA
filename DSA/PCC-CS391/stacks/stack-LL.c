@@ -62,16 +62,16 @@ int main(){
 
     switch(choice){
       case 1:
-        if(a<n){
+        // if(a<n){
           printf("Enter element to push: ");
             scanf("%d",&val);
             push(val);
             a++;
             printf("Element pushed.\n");
-        }
-        else{
-          printf("Overflow!\n");
-        }
+        // }
+        // else{
+        //   printf("Overflow!\n");   #There's no overflow condn in linked stack.
+        // }
         break;
       case 2:
         pop();

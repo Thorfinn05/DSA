@@ -59,8 +59,9 @@ int main(){
   int val, choice, n;
   printf("Enter Queue size: ");
   scanf("%d",&size);
+  printf("\nChoose:\n1. Insert\n2. Delete\n3. Display\n4. Exit\n");
   while(1){
-    printf("\nChoose:\n1. Insert\n2. Delete\n3. Display\n4. Exit\nEnter Choice: ");
+    printf("\nEnter Choice: ");
     scanf("%d",&choice);
     switch(choice){
       case 1:
