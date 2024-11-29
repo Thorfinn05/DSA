@@ -27,7 +27,6 @@ void delete(){
     printf("Underflow!\n");
   }
   else{
-    int val=queue[rear];
     front++;
     printf("Deleted.\n");
   }
@@ -38,16 +37,21 @@ void display(){
   for(i=front+1; i<=rear; i++){
     printf("%d\n",queue[i]);
   }
-  if(front==-1 && rear==-1){
+  if(front==-1 || front>rear){
     printf("Empty Queue!\n");
   }
+}
+
+void peek(){
+  printf("Front: %d",queue[front+1]);
 }
 
 int main(){
   printf("Enter population: ");
   scanf("%d",&n);
+  printf("\nChoose:\n1. Insert\n2. Delete\n3. Display\n4. Exit\n5. Peek");
   while(1){
-    printf("\nChoose:\n1. Insert\n2. Delete\n3. Display\n4. Exit\nEnter Choice: ");
+    printf("\nEnter Choice: ");
     scanf("%d",&choice);
     switch(choice){
       case 1:
@@ -62,6 +66,9 @@ int main(){
       case 4:
         printf("Exiting...\n");
         return 0;
+      case 5:
+        peek();
+        break;
       default:
         printf("Invalid Input!\n");
     }
