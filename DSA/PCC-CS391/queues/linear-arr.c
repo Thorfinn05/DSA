@@ -38,7 +38,7 @@ void display(){
     printf("%d\n",queue[i]);
   }
   if(front==-1 || front>rear){
-    printf("Empty Queue!\n");
+    printf("Underflow!(Empty Queue!)\n");
   }
 }
 
@@ -47,8 +47,6 @@ void peek(){
 }
 
 int main(){
-  printf("Enter population: ");
-  scanf("%d",&n);
   printf("\nChoose:\n1. Insert\n2. Delete\n3. Display\n4. Exit\n5. Peek");
   while(1){
     printf("\nEnter Choice: ");
