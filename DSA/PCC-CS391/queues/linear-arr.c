@@ -33,12 +33,14 @@ void delete(){
 }
 
 void display(){
-  printf("Queue: \n");
-  for(i=front+1; i<=rear; i++){
-    printf("%d\n",queue[i]);
-  }
   if(front==-1 || front>rear){
     printf("Underflow!(Empty Queue!)\n");
+  }
+  else{
+    printf("Queue: \n");
+    for(i=front+1; i<=rear; i++){
+      printf("%d\n",queue[i]);
+    }
   }
 }
 

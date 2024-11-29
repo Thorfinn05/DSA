@@ -46,22 +46,24 @@ void delete(){
 }
 
 void display(){
-  printf("Queue: \n");
-  if(rear>=front){
-    for(i=front+1; i<=rear; i++){
-      printf("%d\n",queue[i]);
-    }
-  }
-  else{
-    for(i=front; i<=MAX-1; i++){
-      printf("%d\n",queue[i]);
-    }
-    for(i=0; i<=rear; i++){
-      printf("%d\n",queue[i]);
-    }
-  }
   if(front==-1 && rear==-1){
     printf("Empty Queue!\n");
+  }
+  else{
+    printf("Queue: \n");
+    if(rear>=front){
+      for(i=front+1; i<=rear; i++){
+        printf("%d\n",queue[i]);
+      }
+    }
+    else{
+      for(i=front; i<=MAX-1; i++){
+        printf("%d\n",queue[i]);
+      }
+      for(i=0; i<=rear; i++){
+        printf("%d\n",queue[i]);
+      }
+    }
   }
 }
 
