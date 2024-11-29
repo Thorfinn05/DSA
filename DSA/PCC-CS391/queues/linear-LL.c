@@ -7,28 +7,21 @@ struct Node{
 };
 struct Node *front=NULL;
 struct Node *rear=NULL;
-int size=0, s=0;
+
 
 void insert(int val){
-  if(s==size){
-    printf("Overflow!");
-    return;
+  struct Node *new, *ptr;
+  new=malloc(sizeof(struct Node));
+  new->data=val;
+  new->next=NULL;
+  if(front==NULL && rear==NULL){
+    front=rear=new;
   }
   else{
-    struct Node *new, *ptr;
-    new=malloc(sizeof(struct Node));
-    new->data=val;
-    new->next=NULL;
-    if(front==NULL && rear==NULL){
-      front=rear=new;
-    }
-    else{
-      rear->next=new;
-      rear=new;
-    }
-    s++;
-    printf("Inserted.");
+    rear->next=new;
+    rear=new;
   }
+  printf("Inserted.");
 }
 
 void delete(){
@@ -40,7 +33,6 @@ void delete(){
     ptr=front;
     front=front->next;
     free(ptr);
-    s--;
     printf("Deleted.");
   }
 }
@@ -57,8 +49,6 @@ void display(){
 
 int main(){
   int val, choice, n;
-  printf("Enter Queue size: ");
-  scanf("%d",&size);
   printf("\nChoose:\n1. Insert\n2. Delete\n3. Display\n4. Exit\n");
   while(1){
     printf("\nEnter Choice: ");
@@ -69,19 +59,15 @@ int main(){
         scanf("%d",&val);
         insert(val);
         break;
-
       case 2:
         delete();
         break;
-
       case 3:
         display();
         break;
-
       case 4:
         printf("Exiting...");
         return 0;
-
       default:
         printf("Invalid Input!");
     }
