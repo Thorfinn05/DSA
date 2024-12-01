@@ -6,30 +6,50 @@ struct Node{
   struct Node *left;
   struct Node *right;
 };
+// ***[MAKES THE CODE LONGER SO USING SHORT VERSION]***
+// struct Node *create(int data){
+//   struct Node *node=(struct Node*)malloc(sizeof(struct Node));
+//   node=malloc(sizeof(struct Node));
+//   node->data=data;
+//   node->left=NULL;
+//   node->right=NULL;
+//   return node;
+// }
 
-struct Node *create(int data, struct Node *node){
+// struct Node *insert(){
+//   int c, data;
+//   printf("\nPress 1 to create new node or 0 to exit:");
+//   scanf("%d",&c);
+//   if(c==0){
+//     return NULL;
+//   }
+//   printf("Enter data: ");
+//   scanf("%d",&data);
+//   struct Node *node=create(data);
+//   printf("Enter left child of %d", data);
+//   node->left=insert();
+//   printf("Enter right child of %d", data);
+//   node->right=insert();
+
+//   return node;
+// }
+
+struct Node *create(){
+  struct Node *node;
   node=malloc(sizeof(struct Node));
-  node->data=data;
-  // node->left=NULL;
-  // node->right=NULL;
-  return node;
-}
-
-struct Node *insert(struct Node *node){
-  int c, data;
-  printf("\nPress 1 to create new node or 0 to exit:");
-  scanf("%d",&c);
-  if(c==0){
+  int cho, data;
+  printf("\nPress 1 to create a new node or 0 to exit:");
+  scanf("%d", &cho);
+  if(cho==0){
     return NULL;
   }
-  printf("Enter data: ");
-  scanf("%d",&data);
-  node=create(data, node);
-  printf("Enter left child: %d", data);
-  node->left=create(data, node);
-  printf("Enter right child: %d", data);
-  node->right=create(data, node);
-
+  printf("Enter data");
+  scanf("%d", &data);
+  node->data=data;
+  printf("Enter left node of %d ->", data);
+  node->left=create();
+  printf("Enter right node of %d ->", data);
+  node->right=create();
   return node;
 }
 
@@ -58,7 +78,6 @@ void inorder(struct Node *root){
 }
 
 int main(){
-  struct Node *node;
   struct Node *root=NULL;
   int choice, data, c;
   printf("\nChoose:\n1. Insert\n2. Exit\n3. Preorder\n4. Postorder\n5. Inorder");
@@ -86,7 +105,7 @@ int main(){
         //   //   break;
         //   // }
         
-        root=insert(node);
+        root=insert();
         break;
       case 2:
         printf("Exiting...");
