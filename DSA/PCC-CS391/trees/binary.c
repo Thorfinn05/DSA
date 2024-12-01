@@ -56,13 +56,15 @@ void postorder(){
 
 void inorder(){
   if(root!=NULL){
-    postorder(root->left);
+    inorder(root->left);
+    printf("%d ", root->data);
+    inorder(root->right);
   }
 }
 
 int main(){
   int choice, data, c;
-  printf("\nChoose:\n1. Insert\n2. Exit\3. Preorder");
+  printf("\nChoose:\n1. Insert\n2. Exit\n3. Preorder\n4. Postorder\n5. Inorder");
   while(1){
     printf("\nEnter choice: ");
     scanf("%d",&choice);
@@ -94,6 +96,12 @@ int main(){
         return 0;
       case 3:
         preorder();
+        break;
+      case 4:
+        postorder();
+        break;
+      case 5:
+        inorder();
         break;
       default:
         printf("Invalid Input!\n");
