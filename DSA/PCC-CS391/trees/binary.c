@@ -2,20 +2,101 @@
 #include<stdlib.h>
 
 struct Node{
+  int data;
   struct Node *left;
   struct Node *right;
 };
 struct Node *root=NULL;
 
-struct Node *create(){
-  struct Node *new;
-  int val;
-  new=malloc(sizeof(struct Node));
-  printf("Enter data(if no data put -1): ");
-  scanf("%d",&val);
-  new->data=val;
-  if(val==-1){
-    return NULL;
+struct Node *create(int data){
+  root=malloc(sizeof(struct Node));
+  root->data=data;
+  root->left=NULL;
+  root->right=NULL;
+  return root;
+}
+
+struct Node *insert(int data, int c){
+  if(root==NULL){
+    root=create(data);
   }
-  printf("Enter the left Node")
+  else{
+    // printf("Which Node? (Left/Right): ");
+    // scanf("%d",&c);
+    // if(c=1){
+    //   root->left=insert(data, c);
+    // } 
+    // else if(c=2){
+    //   root->right=insert(data, c);
+    // }
+    // else{
+    //   root->left=NULL;
+    //   root->right=NULL;
+    // }
+  }
+  
+  return root;
+}
+
+void preorder(){
+  if(root!=NULL){
+    printf("%d ", root->data);
+    preorder(root->left);
+    preorder(root->right);
+  }
+}
+
+void postorder(){
+  if(root!=NULL){
+    postorder(root->left);
+    postorder(root->right);
+    printf("%d ", root->data);
+  }
+}
+
+void inorder(){
+  if(root!=NULL){
+    postorder(root->left);
+  }
+}
+
+int main(){
+  int choice, data, c;
+  printf("\nChoose:\n1. Insert\n2. Exit\3. Preorder");
+  while(1){
+    printf("\nEnter choice: ");
+    scanf("%d",&choice);
+
+    switch(choice){
+      case 1:
+        printf("Enter element to insert: ");
+        scanf("%d",&data);
+          printf("Which Node? (Left/Right): ");
+          scanf("%d",&c);
+          if(c=1){
+            root->left=insert(data, c);
+            break;
+          } 
+          else if(c=2){
+            root->right=insert(data, c);
+            break;
+          }
+          else{
+            root->left=NULL;
+            root->right=NULL;
+            break;
+          }
+        
+        insert(data, c);
+        break;
+      case 2:
+        printf("Exiting...");
+        return 0;
+      case 3:
+        preorder();
+        break;
+      default:
+        printf("Invalid Input!\n");
+    }
+  }
 }
