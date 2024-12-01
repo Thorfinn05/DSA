@@ -7,15 +7,15 @@ struct Node{
   struct Node *right;
 };
 
-struct Node *create(struct Node *root, int data){
-  root=malloc(sizeof(struct Node));
-  root->data=data;
-  root->left=NULL;
-  root->right=NULL;
-  return root;
+struct Node *create(int data, struct Node *node){
+  node=malloc(sizeof(struct Node));
+  node->data=data;
+  // node->left=NULL;
+  // node->right=NULL;
+  return node;
 }
 
-struct Node *insert(struct Node *root){
+struct Node *insert(struct Node *node){
   int c, data;
   printf("\nPress 1 to create new node or 0 to exit:");
   scanf("%d",&c);
@@ -24,13 +24,13 @@ struct Node *insert(struct Node *root){
   }
   printf("Enter data: ");
   scanf("%d",&data);
-  root=create(root, data);
+  node=create(data, node);
   printf("Enter left child: %d", data);
-  root->left=create(root, data);
+  node->left=create(data, node);
   printf("Enter right child: %d", data);
-  root->right=create(root, data);
+  node->right=create(data, node);
 
-  return root;
+  return node;
 }
 
 void preorder(struct Node *root){
@@ -58,6 +58,7 @@ void inorder(struct Node *root){
 }
 
 int main(){
+  struct Node *node;
   struct Node *root=NULL;
   int choice, data, c;
   printf("\nChoose:\n1. Insert\n2. Exit\n3. Preorder\n4. Postorder\n5. Inorder");
@@ -85,7 +86,7 @@ int main(){
         //   //   break;
         //   // }
         
-        insert(root, data, c);
+        root=insert(node);
         break;
       case 2:
         printf("Exiting...");
