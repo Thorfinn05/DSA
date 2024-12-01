@@ -6,9 +6,8 @@ struct Node{
   struct Node *left;
   struct Node *right;
 };
-struct Node *root=NULL;
 
-struct Node *create(int data){
+struct Node *create(struct Node *root, int data){
   root=malloc(sizeof(struct Node));
   root->data=data;
   root->left=NULL;
@@ -16,29 +15,25 @@ struct Node *create(int data){
   return root;
 }
 
-struct Node *insert(int data, int c){
-  if(root==NULL){
-    root=create(data);
+struct Node *insert(struct Node *root){
+  int c, data;
+  printf("\nPress 1 to create new node or 0 to exit:");
+  scanf("%d",&c);
+  if(c==0){
+    return NULL;
   }
-  else{
-    // printf("Which Node? (Left/Right): ");
-    // scanf("%d",&c);
-    // if(c=1){
-    //   root->left=insert(data, c);
-    // } 
-    // else if(c=2){
-    //   root->right=insert(data, c);
-    // }
-    // else{
-    //   root->left=NULL;
-    //   root->right=NULL;
-    // }
-  }
-  
+  printf("Enter data: ");
+  scanf("%d",&data);
+  root=create(root, data);
+  printf("Enter left child: %d", data);
+  root->left=create(root, data);
+  printf("Enter right child: %d", data);
+  root->right=create(root, data);
+
   return root;
 }
 
-void preorder(){
+void preorder(struct Node *root){
   if(root!=NULL){
     printf("%d ", root->data);
     preorder(root->left);
@@ -46,7 +41,7 @@ void preorder(){
   }
 }
 
-void postorder(){
+void postorder(struct Node *root){
   if(root!=NULL){
     postorder(root->left);
     postorder(root->right);
@@ -54,7 +49,7 @@ void postorder(){
   }
 }
 
-void inorder(){
+void inorder(struct Node *root){
   if(root!=NULL){
     inorder(root->left);
     printf("%d ", root->data);
@@ -63,6 +58,7 @@ void inorder(){
 }
 
 int main(){
+  struct Node *root=NULL;
   int choice, data, c;
   printf("\nChoose:\n1. Insert\n2. Exit\n3. Preorder\n4. Postorder\n5. Inorder");
   while(1){
@@ -71,37 +67,37 @@ int main(){
 
     switch(choice){
       case 1:
-        printf("Enter element to insert: ");
-        scanf("%d",&data);
-          printf("Which Node? (Left/Right): ");
-          scanf("%d",&c);
-          if(c=1){
-            root->left=insert(data, c);
-            break;
-          } 
-          else if(c=2){
-            root->right=insert(data, c);
-            break;
-          }
-          else{
-            root->left=NULL;
-            root->right=NULL;
-            break;
-          }
+        // printf("Enter element to insert: ");
+        // scanf("%d",&data);
+        //   // printf("Which Node? (Left/Right): ");
+        //   // scanf("%d",&c);
+        //   // if(c=1){
+        //   //   root->left=insert(root, data, c);
+        //   //   break;
+        //   // } 
+        //   // else if(c=2){
+        //   //   root->right=insert(root, data, c);
+        //   //   break;
+        //   // }
+        //   // else{
+        //   //   root->left=NULL;
+        //   //   root->right=NULL;
+        //   //   break;
+        //   // }
         
-        insert(data, c);
+        insert(root, data, c);
         break;
       case 2:
         printf("Exiting...");
         return 0;
       case 3:
-        preorder();
+        preorder(root);
         break;
       case 4:
-        postorder();
+        postorder(root);
         break;
       case 5:
-        inorder();
+        inorder(root);
         break;
       default:
         printf("Invalid Input!\n");
