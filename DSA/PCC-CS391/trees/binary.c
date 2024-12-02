@@ -77,6 +77,23 @@ void inorder(struct Node *root){
   }
 }
 
+int height(struct Node *root){
+  int lheight, rheight;
+  if(root==NULL){
+    return 0;
+  }
+  else{
+    lheight=height(root->left);
+    rheight=height(root->right);
+    if(lheight>rheight){
+      return lheight++;
+    }
+    else{
+      return rheight++;
+    }
+  }
+}
+
 int main(){
   struct Node *root=NULL;
   int choice, data, c;
