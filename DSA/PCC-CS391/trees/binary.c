@@ -1,11 +1,15 @@
 #include<stdio.h>
 #include<stdlib.h>
+#define MAX 20
 
 struct Node{
   int data;
   struct Node *left;
   struct Node *right;
 };
+struct Node *root=NULL;
+struct Node *queue[MAX];
+
 // ***[MAKES THE CODE LONGER SO USING SHORT VERSION]***
 // struct Node *create(int data){
 //   struct Node *node=(struct Node*)malloc(sizeof(struct Node));
@@ -51,6 +55,59 @@ struct Node *create(){
   printf("Enter right node of %d ->", data);
   node->right=create();
   return node;
+}
+
+int i, front=-1, rear=-1;
+
+void insert(struct Node *data){
+  if(rear==MAX-1){
+    printf("Overflow!\n");
+  }
+  else{
+    if(front==-1 && rear==-1){
+      front=rear=0;
+    }
+    else{
+      rear++;
+    }
+    queue[rear]=data;
+  }
+}
+
+int isEmpty(){
+  if(front==-1 || front>rear){
+    return 1;
+  }
+  else{
+    return 0;
+  }
+}
+
+struct Node *delete(){
+  if(isEmptu()==1){
+    printf("Underflow!\n");
+  }
+  else{
+    struct Node *data;
+    data=queue[front];
+    front++;
+    return data;
+  }
+}
+
+void levelorder(struct Node *root){
+  struct Node *ptr;
+  insert(root);
+  while(isEmpty()==0){
+    ptr=delete();
+    if(ptr->left!=NULL){
+      insert(ptr->left);
+    }
+    if(ptr->right!=NULL){
+      insert(ptr->right);
+    }
+    printf("%d ", ptr->data);
+  }
 }
 
 void preorder(struct Node *root){
@@ -124,10 +181,40 @@ int totalExtNodes(struct Node *root){
   }
 }
 
+void mirror(struct Node *root){
+  struct Node *temp;
+  if(root!=NULL){
+    mirror(root->left);
+    mirror(root->right);
+    temp=root->left;
+    root->left=root->right;
+    root->right=temp;
+  }
+}
 
+void removeTreeMem(struct Node *root){
+  if(root!=NULL){
+    removeTreeMem(root->left);
+    removeTreeMem(root->right);
+    free(root);
+  }
+}
+
+int checkBST(struct Node *root){
+  static struct Node *prev=NULL;
+  if(root!=NULL){
+    if(!checkBST(root->left)){
+      return 0;
+    }
+    if(prev!=NULL && root->data <= prev->data){
+      return 0;
+    }
+    prev=root;
+    return checkBST(root->right);
+  }
+}
 
 int main(){
-  struct Node *root=NULL;
   int choice, data, c;
   printf("\nChoose:\n1. Insert\n2. Exit\n3. Preorder\n4. Postorder\n5. Inorder");
   while(1){
@@ -136,25 +223,7 @@ int main(){
 
     switch(choice){
       case 1:
-        // printf("Enter element to insert: ");
-        // scanf("%d",&data);
-        //   // printf("Which Node? (Left/Right): ");
-        //   // scanf("%d",&c);
-        //   // if(c=1){
-        //   //   root->left=insert(root, data, c);
-        //   //   break;
-        //   // } 
-        //   // else if(c=2){
-        //   //   root->right=insert(root, data, c);
-        //   //   break;
-        //   // }
-        //   // else{
-        //   //   root->left=NULL;
-        //   //   root->right=NULL;
-        //   //   break;
-        //   // }
-        
-        root=insert();
+        root=create();
         break;
       case 2:
         printf("Exiting...");
@@ -167,6 +236,30 @@ int main(){
         break;
       case 5:
         inorder(root);
+        break;
+      case 6:
+        levelorder(root);
+        break;
+      case 7:
+        printf("Height of the Tree is %d", height(root));
+        break;
+      case 8:
+        printf("Total no. of nodes is %d", totalNodes(root));
+        break;
+      case 9:
+        printf("Total no. of internal(non-leaf) nodes is %d", totalIntNodes(root));
+        break;
+      case 10:
+        printf("Total no. of external(leaf) nodes is %d", totalExtNodes(root));
+        break;
+      case 11:
+        mirror(root);
+        break;
+      case 12:
+        removeTreeMem(root);
+        break;
+      case 13:
+        checkBST(root);
         break;
       default:
         printf("Invalid Input!\n");
