@@ -216,7 +216,7 @@ int checkBST(struct Node *root){
 
 int main(){
   int choice, data, c;
-  printf("\nChoose:\n1. Insert\n2. Exit\n3. Preorder\n4. Postorder\n5. Inorder");
+  printf("\nChoose:\n1. Insert\n2. Exit\n3. Preorder\n4. Postorder\n5. Inorder\n6. Levelorder\n7. Height\n8. Totoal Nodes\n9. Total Internal Nodes\n10. Total External Nodes\n11. Mirror Tree\n12. Remove Tree from Memory\n13. Check BST");
   while(1){
     printf("\nEnter choice: ");
     scanf("%d",&choice);
