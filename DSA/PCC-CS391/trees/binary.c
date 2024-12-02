@@ -94,6 +94,38 @@ int height(struct Node *root){
   }
 }
 
+int totalNodes(struct Node *root){
+  if(root==NULL){
+    return 0;
+  }
+  else{
+    return (totalNodes(root->left)+totalNodes(root->right)+1);
+  }
+}
+
+int totalIntNodes(struct Node *root){
+  if(root==NULL || root->left==NULL && root->right==NULL){
+    return 0;
+  }
+  else{
+    return (totalIntNodes(root->left)+totalIntNodes(root->right)+1);
+  }
+}
+
+int totalExtNodes(struct Node *root){
+  if(root==NULL){
+    return 0;
+  }
+  else if((root->left==NULL) && (root->right==NULL)){
+    return 1;
+  }
+  else{
+    return (totalExtNodes(root->left)+totalExtNodes(root->right));
+  }
+}
+
+
+
 int main(){
   struct Node *root=NULL;
   int choice, data, c;
