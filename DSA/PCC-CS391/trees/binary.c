@@ -143,10 +143,10 @@ int height(struct Node *root){
     lheight=height(root->left);
     rheight=height(root->right);
     if(lheight>rheight){
-      return lheight++;
+      return ++lheight;
     }
     else{
-      return rheight++;
+      return ++rheight;
     }
   }
 }
@@ -212,6 +212,7 @@ int checkBST(struct Node *root){
     prev=root;
     return checkBST(root->right);
   }
+  return 1;
 }
 
 int main(){
