@@ -84,7 +84,7 @@ int isEmpty(){
 }
 
 struct Node *delete(){
-  if(isEmptu()==1){
+  if(isEmpty()==1){
     printf("Underflow!\n");
   }
   else{
