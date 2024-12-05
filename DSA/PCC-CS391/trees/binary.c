@@ -47,7 +47,7 @@ struct Node *create(){
   if(cho==0){
     return NULL;
   }
-  printf("Enter data");
+  printf("Enter data: ");
   scanf("%d", &data);
   node->data=data;
   printf("Enter left node of %d ->", data);
