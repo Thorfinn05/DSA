@@ -21,11 +21,19 @@ void pop(){
     printf("Underflow.\n");
   }
   else{
+    printf("Element %d popped.\n", stack[top]);
     top--;
-    printf("Element popped.\n");
   }
 }
 
+void peek(){
+  if(top==-1){
+    printf("Underflow!\n");
+  }
+  else{
+    printf("Peeked. Top element is %d.\n", stack[top]);
+  }
+}
 void display(){
   printf("Stack: ");
   for(i=top; i>=0; i--){
@@ -40,7 +48,7 @@ int main(){
   printf("Enter n: ");
   scanf("%d", &n);
   while(1){
-    printf("\nChoose:\n1. Push\n2. Pop\n3. Dispaly\n4. Exit\nEnter Choice: ");
+    printf("\nChoose:\n1. Push\n2. Pop\n3. Dispaly\n4. Exit\n5. Peek\nEnter Choice: ");
     scanf("%d", &choice);
 
     switch(choice){
@@ -56,6 +64,9 @@ int main(){
       case 4:
         printf("Exiting...");
         return 0;
+      case 5:
+        peek();
+        break;
       default:
         printf("Invalid Input!\n");
     }
