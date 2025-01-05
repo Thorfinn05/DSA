@@ -37,6 +37,16 @@ void delete(){
   }
 }
 
+void peek(){
+  struct Node *ptr=front;
+  if(front==NULL){
+    printf("Underflow!\n");
+  }
+  else{
+    printf("Peeked. Front element is %d.\n", ptr->data);
+  }
+}
+
 void display(){
   struct Node *ptr;
   ptr=front;
@@ -49,7 +59,7 @@ void display(){
 
 int main(){
   int val, choice, n;
-  printf("\nChoose:\n1. Insert\n2. Delete\n3. Display\n4. Exit\n");
+  printf("\nChoose:\n1. Insert\n2. Delete\n3. Display\n4. Exit\n5. Peek\n");
   while(1){
     printf("\nEnter Choice: ");
     scanf("%d",&choice);
@@ -68,6 +78,9 @@ int main(){
       case 4:
         printf("Exiting...");
         return 0;
+      case 5:
+        peek();
+        break;
       default:
         printf("Invalid Input!");
     }
