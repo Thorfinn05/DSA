@@ -16,6 +16,37 @@ struct Node *createNode(int val){
     new->right=NULL;
     return new;
 }
+
+// I am using recursion to insert the node in the tree
+/* void insert(struct Node *root, int val){
+    struct Node *prev = NULL;
+    struct Node *new = createNode(val);
+    while(root!=NULL){
+        prev = root;
+        if(val == root->data){
+            printf("Cannot insert %d already in BST!", val);
+            return;
+        }
+        else if(val < root->data)
+            root = root->left;
+        else
+            root = root->right;
+    }
+    if(val < prev->data)
+        prev->left = new;
+    else
+        prev->right = new;
+} */
+
+struct Node *insertrec(struct Node *root, int val){
+    if(root==NULL)
+        return createNode(val);
+    else if(val < root->data)
+        root->left = insertrec(root->left,val);
+    else
+        root->right = insertrec(root->right,val);   
+    return root;
+}
  
 struct Node *search(struct Node *root, int val){  
     if (root == NULL || val == root->data)
@@ -45,36 +76,6 @@ void inorder(struct Node *root){
     inorder(root->left);
     printf("%d ", root->data);
     inorder(root->right);    
-}
-
-void insert(struct Node *root, int val){
-    struct Node *prev = NULL;
-    struct Node *new = createNode(val);
-    while(root!=NULL){
-        prev = root;
-        if(val == root->data){
-            printf("Cannot insert %d already in BST!", val);
-            return;
-        }
-        else if(val < root->data)
-            root = root->left;
-        else
-            root = root->right;
-    }
-    if(val < prev->data)
-        prev->left = new;
-    else
-        prev->right = new;
-}
-
-struct Node *insertrec(struct Node *root, int val){
-    if(root==NULL)
-        return createNode(val);
-    else if(val < root->data)
-        root->left = insertrec(root->left,val);
-    else
-        root->right = insertrec(root->right,val);   
-    return root;
 }
 
 struct Node *inorderPrev(struct Node *root){
