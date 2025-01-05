@@ -41,10 +41,10 @@ struct Node *queue[MAX];
 struct Node *create(){
   struct Node *node;
   node=malloc(sizeof(struct Node));
-  int cho, data;
+  int choice, data;
   printf("\nPress 1 to create a new node or 0 to exit:");
-  scanf("%d", &cho);
-  if(cho==0){
+  scanf("%d", &choice);
+  if(choice==0){
     return NULL;
   }
   printf("Enter data: ");
@@ -97,18 +97,24 @@ struct Node *delete(){
 
 void levelorder(struct Node *root){
   struct Node *ptr;
-  insert(root);
+  insert(root); //inserting the root element in the queue
   while(isEmpty()==0){
-    ptr=delete();
+    ptr=delete(); //after deleting the front element from the queue; (ptr = deleted element)
     if(ptr->left!=NULL){
       insert(ptr->left);
     }
     if(ptr->right!=NULL){
       insert(ptr->right);
     }
-    printf("%d ", ptr->data);
+    printf("%d ", ptr->data); //the front elemnt of the queue which was deleted now printed in the output
   }
 }
+
+/* Example: Root was 70 and it had two child, left 60 right 80.
+Root was inserted in the queue and as it was the front element after deleting it in "ptr=delete()" step the front element is coming back as data was returned and now "ptr=deleted front element=70".
+70's left and right child enqueud...queue=[60, 80].
+As 60 is the front it is deleted and now 80 is the new front while the queue have the left and right child of 60 after 80 say, 30 and 62 and current queue is...queue=[80, 30, 62].
+The process is continued till there's no element is left. */
 
 void preorder(struct Node *root){
   if(root!=NULL){

@@ -1,91 +1,177 @@
-#include<stdio.h>
-#include<stdlib.h>
-#define MAX 20
-
-int i, front=-1, rear=-1;
+#include <stdio.h>  
+#include <stdlib.h>  
 
 struct Node{
-  int data;
-  struct Node *left;
-  struct Node *right;
+    int data;
+    struct Node *left;
+    struct Node *right;
 };
-struct Node *root=NULL;
-struct Node *queue[MAX];
+struct Node *root = NULL;
 
-// struct Node *create(int val){
-//   struct Node *new;
-//   new=malloc(sizeof(struct Node));
-//   new->data=val;
-//   new->left=NULL;
-//   new->right=NULL;
-//   return new;
-// }
+struct Node *createNode(int val){
+    struct Node *new; 
+    new = malloc(sizeof(struct Node));
+    new->data=val;
+    new->left=NULL;
+    new->right=NULL;
+    return new;
+}
+ 
+struct Node *search(struct Node *root, int val){  
+    if (root == NULL || val == root->data)
+        return root;  
+    else if (val > root->data)
+        return search(root->right, val);  
+    else
+        return search(root->left, val);  
+}  
 
-// struct Node *insert(struct Node *root, int val){
-//   if(root==NULL){
-//     root=create(val);
-//     return root;
-//   }
-//   if(val<root->data){
-//     root->left=insert(root->left, val);
-//   }
-//   else if(val>root->data){
-//     root->right=insert(root->right, val);
-//   }
-// }
-
-struct Node *create(){
-  struct Node *node;
-  node=malloc(sizeof(struct Node));
-  int ans, data;
-  printf("\nPress 1 to create a new node or 0 to exit/skip: ");
-  scanf("%d", &ans);
-  if(ans==0){
+//searching in bst by iteration (no recursion used)
+struct Node *searchIter(struct Node *root, int val){
+    while (root!=NULL){
+        if(val == root->data)
+            return root;
+        else if(val < root->data)
+            root = root->left;
+        else
+            root = root->right;
+    }
     return NULL;
-  }
-  printf("Enter data: ");
-  scanf("%d", &data);
-  node->data=data;
-  printf("Enter left/right node of %d ->", data);
-  if(data < node->data){
-    node->left=create();
-    printf("%d entered at left node of %d",data, node->data);
-  }
-  else if(data > node->data){
-    node->right=create();
-    printf("%d entered at right node of %d",data, node->data);
-  }
-  return node;
 }
 
 void inorder(struct Node *root){
-  if(root!=NULL){
+    if(root == NULL)
+        return;
     inorder(root->left);
-    printf("%d", root->data);
-    inorder(root->right);
-  }
+    printf("%d ", root->data);
+    inorder(root->right);    
 }
 
-int main(){
-  int choice, val;
-  printf("\nChoose:\n1. Insert\n2. Exit\n3. Inorder");
-  while(1){
-    printf("\nEnter Choice: ");
-    scanf("%d",&choice);
-
-    switch(choice){
-      case 1:
-        root=create();
-        break;
-      case 2:
-        printf("Exiting...\n");
-        break;
-      case 3:
-        inorder(root);
-        break;
-      default:
-        printf("Invalid Input!\n");
-        break;
+void insert(struct Node *root, int val){
+    struct Node *prev = NULL;
+    struct Node *new = createNode(val);
+    while(root!=NULL){
+        prev = root;
+        if(val == root->data){
+            printf("Cannot insert %d already in BST!", val);
+            return;
+        }
+        else if(val < root->data)
+            root = root->left;
+        else
+            root = root->right;
     }
-  }
+    if(val < prev->data)
+        prev->left = new;
+    else
+        prev->right = new;
+}
+
+struct Node *insertrec(struct Node *root, int val){
+    if(root==NULL)
+        return createNode(val);
+    else if(val < root->data)
+        root->left = insertrec(root->left,val);
+    else
+        root->right = insertrec(root->right,val);   
+    return root;
+}
+
+struct Node *inorderPrev(struct Node *root){
+    root = root->left;
+    while(root->right!=NULL){
+        root = root->right;
+    }
+    return root;
+}
+
+struct Node *delete(struct Node *root, int val){
+    struct Node *iPrev;
+    if(root == NULL){
+        return NULL;
+    }
+    if(root->left==NULL && root->right==NULL){
+        free(root);
+        return NULL;
+    }
+    if(val < root->data){
+        root->left = delete(root->left, val);
+    }
+    else if(val > root->data){
+        root->right = delete(root->right, val);
+    }
+    else{
+        iPrev = inorderPrev(root); //inorder predecessor
+        root->data = iPrev->data;
+        root->left = delete(root->left, iPrev->data);
+    }
+    return root;
+}
+
+struct Node *smallest(struct Node *root){
+    if(root==NULL||root->left==NULL)
+        return root;
+    else
+        return smallest(root->left);
+}
+
+struct Node *largest(struct Node *root){
+    if(root==NULL||root->right==NULL)
+        return root;
+    else
+        return largest(root->right);
+}
+  
+int main(){
+    int choice, val, ans=1;
+    while (1) {
+        printf("\nChoose:\n1.Create\n2.Inorder\n3.Search\n4.Insert\n5.Delete\n6.Smallest\n7.Largest\n8.Quit\nEnter choice:");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1: 
+                printf("Enter root:");
+                scanf("%d",&val);
+                root = createNode(val);
+                break;
+            case 2:
+                inorder(root);
+                break;
+            case 3:
+                printf("Enter data to search:");
+                scanf("%d",&val);
+                if(search(root,val))
+                    printf("%d in tree",val);
+                else
+                    printf("%d not in tree",val);
+                break;
+            case 4:
+                while(ans==1){
+                    printf("Enter data to insert:");
+                    scanf("%d",&val);
+                    // insert(root, val);
+                    root=insertrec(root,val);
+                    printf("\nPress 1 to insert new node or 0 to exit:");
+                    scanf("%d", &ans);
+                }
+                break;
+            case 5:
+                printf("Enter data to delete:");
+                scanf("%d",&val);
+                delete(root,val);
+                break;
+            case 6:
+                printf("Smallest node is %d", smallest(root)->data);
+                break;
+            case 7:
+                printf("Largest node is %d", largest(root)->data);
+                break;
+            case 8:
+                printf("Bye bye");
+                return 0; 
+                break;
+            default:
+                printf("Invalid Input\n");
+        }
+    }
 }
