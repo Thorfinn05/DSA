@@ -79,8 +79,10 @@ void inorder(struct Node *root){
 }
 
 struct Node *inorderPrev(struct Node *root){
+    if (root == NULL || root->left == NULL)
+        return NULL;
     root = root->left;
-    while(root->right!=NULL){
+    while(root->right != NULL){
         root = root->right;
     }
     return root;
@@ -157,12 +159,20 @@ int main(){
                 }
                 break;
             case 5:
-                printf("Enter data to delete:");
+                root = delete(root,val);
                 scanf("%d",&val);
                 delete(root,val);
                 break;
             case 6:
-                printf("Smallest node is %d", smallest(root)->data);
+                struct Node *smallestNode = smallest(root);
+                if (smallestNode != NULL)
+                    printf("Smallest node is %d", smallestNode->data);
+                struct Node *largestNode = largest(root);
+                if (largestNode != NULL)
+                    printf("Largest node is %d", largestNode->data);
+                else
+                    printf("The tree is empty");
+                    printf("The tree is empty");
                 break;
             case 7:
                 printf("Largest node is %d", largest(root)->data);
@@ -170,7 +180,6 @@ int main(){
             case 8:
                 printf("Bye bye");
                 return 0; 
-                break;
             default:
                 printf("Invalid Input\n");
         }
