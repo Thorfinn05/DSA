@@ -27,9 +27,9 @@ void pop(){
     printf("Underflow!\n");
   }
   else{
+    printf("Element %d popped!\n", ptr->data);
     top=ptr->next;
     free(ptr);
-    printf("Element popped!\n");
   }
 }
 
@@ -53,29 +53,20 @@ void display(){
 }
 
 int main(){
-  int choice, n, a=0, val;
-  printf("Enter stack population: ");
-  scanf("%d",&n);
+  int choice, val;
   while(1){
     printf("*Choose*\n1. Push\n2. Pop\n3. Peek\n4. Display\n5. Exit\nEnter choice: ");
     scanf("%d",&choice);
 
     switch(choice){
       case 1:
-        // if(a<n){
-          printf("Enter element to push: ");
-            scanf("%d",&val);
-            push(val);
-            a++;
-            printf("Element pushed.\n");
-        // }
-        // else{
-        //   printf("Overflow!\n");   #There's no overflow condn in linked stack.
-        // }
+        printf("Enter element to push: ");
+        scanf("%d",&val);
+        push(val);
+        printf("Element pushed.\n");
         break;
       case 2:
         pop();
-        a--;
         break;
       case 3:
         peek();
