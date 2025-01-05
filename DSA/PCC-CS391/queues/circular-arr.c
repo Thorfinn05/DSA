@@ -52,7 +52,7 @@ void display(){
   else{
     printf("Queue: \n");
     if(rear>=front){
-      for(i=front+1; i<=rear; i++){
+      for(i=front; i<=rear; i++){
         printf("%d\n",queue[i]);
       }
     }
@@ -67,8 +67,12 @@ void display(){
   }
 }
 
+void peek(){
+  printf("Peeked. Front: %d",queue[front]);
+}
+
 int main(){
-  printf("\nChoose:\n1. Insert\n2. Delete\n3. Display\n4. Exit\n");
+  printf("\nChoose:\n1. Insert\n2. Delete\n3. Display\n4. Exit\n5. Peek");
   while(1){
     printf("\nEnter Choice: ");
     scanf("%d",&choice);
@@ -85,6 +89,9 @@ int main(){
       case 4:
         printf("Exiting...\n");
         return 0;
+      case 5:
+        peek();
+        break;
       default:
         printf("Invalid Input!\n");
     }
