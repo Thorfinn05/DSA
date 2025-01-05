@@ -15,13 +15,11 @@ void insert(){
     scanf("%d",&val);
     if(front==-1 && rear==-1){
       front=0; rear=0;
-      queue[rear]=val;
     }
     else{
       rear++;
-      queue[rear]=val;
     }
-    
+    queue[rear]=val;
     printf("Inserted.\n");
   }
 }
