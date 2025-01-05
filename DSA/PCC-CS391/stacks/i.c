@@ -1,11 +1,17 @@
 #include <stdio.h>
-#include <ctype.h> // for isalnum()
+#include <ctype.h> // for isalnum() and isdigit()
+#include <stdlib.h> // for atoi()
+#include <math.h> // for pow()
 
 #define MAX 100
 
 // Stack to hold operators
 char stack[MAX];
 int top = -1;
+
+// Stack to hold operands for evaluation
+int evalStack[MAX];
+int evalTop = -1;
 
 // Function to check if the character is an operator
 int isOperator(char c) {
@@ -89,6 +95,58 @@ void infixToPostfix(char* infix, char* postfix) {
     postfix[j] = '\0'; // Null-terminate the postfix expression
 }
 
+// Function to push an operand to the evaluation stack
+void evalPush(int value) {
+    if(evalTop < MAX - 1) {
+        evalStack[++evalTop] = value;
+    }
+}
+
+// Function to pop an operand from the evaluation stack
+int evalPop() {
+    if(evalTop >= 0) {
+        return evalStack[evalTop--];
+    }
+    return -1; // Stack underflow
+}
+
+// Function to evaluate a postfix expression
+int evaluatePostfix(char* postfix) {
+    int i = 0;
+    char c;
+    int operand1, operand2, result;
+
+    while((c = postfix[i++]) != '\0') {
+        // If the character is an operand (digit), push it to the stack
+        if(isdigit(c)) {
+            int num = 0;
+            while(isdigit(c)) {
+                num = num * 10 + (c - '0');
+                c = postfix[i++];
+            }
+            i--; // Adjust for the extra increment
+            evalPush(num);
+        }
+        // If the character is an operator, pop two operands and apply the operator
+        else if(isOperator(c)) {
+            operand2 = evalPop();
+            operand1 = evalPop();
+            switch(c) {
+                case '+': result = operand1 + operand2; break;
+                case '-': result = operand1 - operand2; break;
+                case '*': result = operand1 * operand2; break;
+                case '/': result = operand1 / operand2; break;
+                case '%': result = operand1 % operand2; break;
+                case '^': result = (int)pow(operand1, operand2); break;
+            }
+            evalPush(result);
+        }
+    }
+
+    // The final result will be the only value left in the stack
+    return evalPop();
+}
+
 int main() {
     char infix[MAX], postfix[MAX];
     
@@ -99,8 +157,14 @@ int main() {
     // Convert infix to postfix
     infixToPostfix(infix, postfix);
     
-    // Output the result
+    // Output the postfix expression
     printf("Postfix expression: %s\n", postfix);
+    
+    // Evaluate the postfix expression
+    int result = evaluatePostfix(postfix);
+    
+    // Output the result of evaluation
+    printf("Result of evaluation: %d\n", result);
 
     return 0;
 }
