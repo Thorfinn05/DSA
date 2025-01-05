@@ -2,22 +2,26 @@
 #include<stdlib.h>
 #define MAX 5
 
-int queue[MAX];
+int queue[20];
 int i, n, choice, front=-1, rear=-1;
 
 void insert(){
   int val;
-  if(rear==MAX-1){
+  if(rear==n-1){
     printf("Overflow!\n");
   }
   else{
+    printf("Enter elements: ");
+    scanf("%d",&val);
     if(front==-1 && rear==-1){
       front=0; rear=0;
+      queue[rear]=val;
     }
-    printf("Enter elements: ");
-      scanf("%d",&val);
+    else{
       rear++;
       queue[rear]=val;
+    }
+    
     printf("Inserted.\n");
   }
 }
@@ -38,17 +42,19 @@ void display(){
   }
   else{
     printf("Queue: \n");
-    for(i=front+1; i<=rear; i++){
+    for(i=front; i<=rear; i++){
       printf("%d\n",queue[i]);
     }
   }
 }
 
 void peek(){
-  printf("Front: %d",queue[front+1]);
+  printf("Peeked. Front: %d",queue[front]);
 }
 
 int main(){
+  printf("Enter n: ");
+  scanf("%d", &n);
   printf("\nChoose:\n1. Insert\n2. Delete\n3. Display\n4. Exit\n5. Peek");
   while(1){
     printf("\nEnter Choice: ");
