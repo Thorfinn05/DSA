@@ -1,4 +1,4 @@
-## **DSA (Data Structures and Algorithms)**
+# **DSA (Data Structures and Algorithms)**
 
 Welcome to the **DSA** repository! This collection features all the Data Structures and Algorithms (DSA) code implemented in C during my 3rd semester at college. It's a valuable resource for students and developers looking to understand fundamental DSA concepts through practical C implementations.
 
