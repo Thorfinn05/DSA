@@ -103,10 +103,28 @@ void search(int val){
   printf("Element %d does not exist in the list.\n",val);
 }
 
+void maxAndMin(){
+  struct Node *ptr=start;
+  int i=1;
+  int max=ptr->data;
+  int min=ptr->data;
+  while(ptr!=NULL){
+    if(ptr->data > max){
+      max = ptr->data;
+    }
+    if(ptr->data < min){
+      min = ptr->data;
+    }
+    ptr=ptr->next;
+    i++;
+  }
+  printf("Max: %d and Min: %d\n",max,min);
+}
+
 int main(){
   int choice, val, pos, n;
   while(1){
-    printf("\nChoose: \n1.Create\n2.Display\n3.Search\n4.Insert\n5.Delete\n6.Exit\nEnter choice: ");
+    printf("\nChoose: \n1.Create\n2.Display\n3.Search\n4.Insert\n5.Delete\n6.Exit\n7. Max and Min Data\nEnter choice: ");
     scanf("%d",&choice);
 
     switch(choice){
@@ -143,6 +161,9 @@ int main(){
       case 6:
         printf("Exiting...\n");
         return 0;
+      case 7:
+        maxAndMin();
+        break;
       default:
         printf("Invalid Input.\n");
     }

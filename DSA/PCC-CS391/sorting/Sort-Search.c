@@ -30,7 +30,7 @@ void selectionSort(int arr[], int n){
   int i,j,k,temp,min;
   for(i=0;i<n;i++){
     min=arr[i];
-    k=i;
+    // k=i;
     for(j=i+1;j<n;j++){
       if(arr[j]<min){
         min=arr[j];

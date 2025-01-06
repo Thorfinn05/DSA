@@ -81,7 +81,7 @@ struct Node *insert(struct Node *root, int val){
   if(bf>1 && val<root->left->data){
     return rightRotate(root);
   }
-  if(bf<-1 && val<root->right->data){
+  if(bf<-1 && val>root->right->data){
     return leftRotate(root);
   }
   if(bf>1 && val>root->left->data){
