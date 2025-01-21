@@ -10,54 +10,58 @@ struct Node{
 struct Node *root=NULL;
 struct Node *queue[MAX];
 
-// ***[MAKES THE CODE LONGER SO USING SHORT VERSION]***
-// struct Node *create(int data){
-//   struct Node *node=(struct Node*)malloc(sizeof(struct Node));
-//   node=malloc(sizeof(struct Node));
-//   node->data=data;
-//   node->left=NULL;
-//   node->right=NULL;
-//   return node;
-// }
+struct Node *createNode(int val){
+  struct Node *new;
+  new=malloc(sizeof(struct Node));
+  new->data=val;
+  new->left=NULL;
+  new->right=NULL;
+  return new;
+}
 
-// struct Node *insert(){
-//   int c, data;
-//   printf("\nPress 1 to create new node or 0 to exit:");
-//   scanf("%d",&c);
-//   if(c==0){
+struct Node *insertNode(struct Node *root, int val){
+  if(root==NULL){
+    root=createNode(val);
+  }
+  else{
+    char choice;
+    printf("\nInsert at left or right of %d? (l/r): ", root->data);
+    scanf(" %c", &choice);
+    if(choice=='l' || choice=='L'){
+      root->left=insertNode(root->left, val);
+      printf("Inserted %d at left of %d\n", val, root->data);
+    }
+    else if(choice=='r' || choice=='R'){
+      root->right=insertNode(root->right, val);
+      printf("Inserted %d at right of %d\n", val, root->data);
+    }
+    else{
+      printf("Invalid Choice!\n");
+    }
+  }
+  return root;
+}
+
+// struct Node *create(){
+//   struct Node *node;
+//   node=malloc(sizeof(struct Node));
+//   int choice, data;
+//   printf("\nPress 1 to create a new node or 0 to exit:");
+//   scanf("%d", &choice);
+//   if(choice==0){
 //     return NULL;
 //   }
 //   printf("Enter data: ");
-//   scanf("%d",&data);
-//   struct Node *node=create(data);
-//   printf("Enter left child of %d", data);
-//   node->left=insert();
-//   printf("Enter right child of %d", data);
-//   node->right=insert();
-
+//   scanf("%d", &data);
+//   node->data=data;
+//   printf("Enter left node of %d ->", data);
+//   node->left=create();
+//   printf("Enter right node of %d ->", data);
+//   node->right=create();
 //   return node;
 // }
 
-struct Node *create(){
-  struct Node *node;
-  node=malloc(sizeof(struct Node));
-  int choice, data;
-  printf("\nPress 1 to create a new node or 0 to exit:");
-  scanf("%d", &choice);
-  if(choice==0){
-    return NULL;
-  }
-  printf("Enter data: ");
-  scanf("%d", &data);
-  node->data=data;
-  printf("Enter left node of %d ->", data);
-  node->left=create();
-  printf("Enter right node of %d ->", data);
-  node->right=create();
-  return node;
-}
 
-//Levelorder Traversal
 int i, front=-1, rear=-1;
 
 void insert(struct Node *data){
@@ -231,7 +235,9 @@ int main(){
 
     switch(choice){
       case 1:
-        root=create();
+        printf("Enter data to insert: ");
+        scanf("%d", &data);
+        root = insertNode(root, data);
         break;
       case 2:
         printf("Exiting...");
