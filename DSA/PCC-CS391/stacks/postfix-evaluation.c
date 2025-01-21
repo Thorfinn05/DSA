@@ -4,7 +4,7 @@
 #include<math.h> // For power function
 #define MAX 100
 
-char stack[MAX];
+int stack[MAX];
 int top = -1;
 
 void push(int value) {
