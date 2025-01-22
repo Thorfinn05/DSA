@@ -11,7 +11,7 @@ void insert(){
     printf("Overflowed!");
   }
   else{
-    printf("Eneter elements: ");
+    printf("Enter elements: ");
     scanf("%d",&val);
     if(front==-1 && rear==-1){
       front=0; rear=0;
